@@ -2,6 +2,7 @@
 using blog_website.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using blog_website.Dtos;
 
 namespace blog_website.Data
 {

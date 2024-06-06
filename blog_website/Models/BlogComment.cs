@@ -11,14 +11,12 @@ namespace blog_website.Models
         public string Comment { get; set; } = null!;
 
         public int BlogPostId { get; set; }
-        public int UserId { get; set; }
+        public string? UserId { get; set; } = null!;
 
         public DateTime CreatedAt { get; set; }
-        public DateTime LastUpdatedAt { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
 
-        [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; } = null!;
-        [ForeignKey("BlogPostId")]
         public virtual BlogPost BlogPost { get; set; } = null!;
     }
 }
