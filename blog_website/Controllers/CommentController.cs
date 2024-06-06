@@ -22,7 +22,7 @@ namespace blog_website.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<bool> AddComment(BlogCommentCreateDto commentDto)
+        public async Task<IActionResult> AddComment([FromBody] BlogCommentCreateDto commentDto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -35,15 +35,16 @@ namespace blog_website.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                return StatusCode(500, new { message = "An error occurred while adding the comment.", error = ex.Message });
+
             }
 
-            return true;
+            return Ok(new { message = "Comment added successfully." });
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<bool> EditComment(BlogCommentEditDto commentDto)
+        [HttpPut]
+        public async Task<IActionResult> EditComment([FromBody]BlogCommentEditDto commentDto)
         {
 
             try
@@ -53,15 +54,16 @@ namespace blog_website.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                return StatusCode(500, new { message = "An error occurred while editing the comment.", error = ex.Message });
+
             }
 
-            return true;
+            return Ok(new { message = "Comment edited successfully." });
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<bool> DeleteComment(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteComment(int id)
         {
             try
             {
@@ -70,10 +72,11 @@ namespace blog_website.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                return StatusCode(500, new { message = "An error occurred while deleting the comment.", error = ex.Message });
+
             }
 
-            return true;
+            return Ok(new { message = "Comment deleted successfully." });
         }
     }
 }

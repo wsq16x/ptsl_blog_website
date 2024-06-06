@@ -24,7 +24,8 @@ namespace blog_website.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var result = await _blogPostService.GetAllBlogPosts();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await _blogPostService.GetUserBlogPosts(userId);
             
             return View(result);
         }

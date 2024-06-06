@@ -68,7 +68,7 @@ namespace blog_website.Services
 
         public async Task<BlogPost> GetBlogPostById(int id)
         {
-            var blogPost = await _context.BlogPosts.FindAsync(id);
+            var blogPost = await _context.BlogPosts.Include(x => x.Comments).ThenInclude(y => y.User).Include(x => x.Author).Where(x => x.Id == id).FirstOrDefaultAsync();
 
             if (blogPost == null)
             {
